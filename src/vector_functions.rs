@@ -1,4 +1,3 @@
-use std::any::TypeId;
 use std::f64::consts::PI;
 
 fn degreeToRadians(degrees: f64) -> f64 {
@@ -9,30 +8,37 @@ fn radianToDegrees(radians: f64) -> f64 {
     radians * 180.0 / PI
 }
 
-fn vectorSubtract(a: Vec<f64>,b: Vec<f64>) -> Vec<f64> {
-    vec![a[0]-b[0],a[1]-b[1],a[2]-b[2]]
+pub(crate) fn vectorSubtract(a: [f64; 3],b: [f64; 3]) -> [f64; 3] {
+    [a[0]-b[0],a[1]-b[1],a[2]-b[2]]
 }
 
-fn vectorAdd(a: Vec<f64>,b: Vec<f64>) -> Vec<f64> {
-    vec![a[0]+b[0],a[1]+b[1],a[2]+b[2]]
+pub(crate) fn vectorAdd(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
+    [a[0]+b[0],a[1]+b[1],a[2]+b[2]]
 }
 
-fn vectorMultiply<MultType>(a: Vec<f64>, b: MultType) -> Vec<f64> {
-    if TypeId::of::<MultType>() == TypeId::of::<f64>() {
-        let mut newVec: Vec<f64> = a.clone();
-         newVec.into_iter().map(|x| x * b);
-        .collect::<Vec<f64>>()
+pub(crate) fn vectorMultiply(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
+    let mut newVec: [f64; 3] = a.clone();
+    for index in 0..3 {
+        newVec[index] *= b[index]
     }
-    if TypeId::of::<MultType>() == TypeId::of::<Vec<f64>>() {
-        let mut newVec: Vec<f64> = a.clone();
+    newVec
+}
+
+pub(crate) fn vectorAverage(vectors: Vec<[f64; 3]>) -> [f64; 3] {
+    let mut vecSum: [f64; 3] = [0.0;3];
+    for vector in &vectors {
         for index in 0..3 {
-            newVec[index] *= b[index]
+            vecSum[index] += vector[index];
         }
-        newVec
     }
+    [vecSum[0]/vectors.len() as f64,vecSum[1]/vectors.len() as f64,vecSum[2]/vectors.len() as f64]
 }
 
-fn vectDistance(a: Vec<f64>, b: Vec<f64>) -> f64 {
+fn float_to_array3(value: f64) -> [f64; 3] {
+    [value, value, value]
+}
+
+fn vectDistance(a: [f64; 3], b: [f64; 3]) -> f64 {
     ((a[0]-b[0]).powi(2)+(a[1]-b[1]).powi(2)+(a[2]-b[2]).powi(2)).powf(0.5)
 }
 
