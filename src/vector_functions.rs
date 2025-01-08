@@ -45,3 +45,8 @@ fn vectDistance(a: [f64; 3], b: [f64; 3]) -> f64 {
 fn rotateCoord(coordinate:Vec<f64>,degree:f64,center:Vec<f64>) -> Vec<f64>{
     vec![center[0] + (coordinate[0] - center[0]) * degreeToRadians(degree).cos() - (coordinate[2] - center[2]) * degreeToRadians(degree).sin(), coordinate[1], center[2] + (coordinate[0] - center[0]) * degreeToRadians(degree).sin() + (coordinate[2] - center[2]) * degreeToRadians(degree).cos()]
 }
+
+fn vectorRange(coordA:[f64; 3],coordB:[f64; 3],numPoints:i32) -> Vec<f64>{
+    let list: vec<[f64; 3]>
+    list.extend(coordA)
+}
