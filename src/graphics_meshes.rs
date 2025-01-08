@@ -15,3 +15,10 @@ fn createSquareMesh(pointA:[f64; 3], pointB:[f64; 3], pointC:[f64; 3]) -> graphi
     graphics_assets::Mesh{triangles:squareMeshTriangles}
 }
 
+fn createCircleMesh(pointA:[f64; 3], pointB:[f64; 3], pointC:[f64;3]) -> graphics_assets::Mesh {
+    let mut circleMeshTriangles : Vec<graphics_assets::Triangle> = vec![];
+    let mut outerSquare : vec<[f64;3]>
+    let pointD:[f64; 3] = vectorAdd(&pointA,vectorSubtract(&pointC,&pointB));
+    outerSquare.push(
+}
+
