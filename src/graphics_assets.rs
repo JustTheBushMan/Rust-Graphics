@@ -1,6 +1,12 @@
 use crate::constants::*;
 use crate::vector_functions;
 
+pub(crate)<T> struct Matrix {
+    pub(crate) rows: u32,
+    pub(crate) columns: u32,
+    pub(crate) elements: Vec<Vec<T>>
+}
+
 //Vertex
 pub(crate) struct Vertex {
     pub(crate) position: [f64; 3],
