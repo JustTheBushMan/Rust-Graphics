@@ -1,5 +1,5 @@
 use crate::constants;
-use crate::graphics_assets;
+use crate::graphics_assets::*;
 use crate::vector_functions;
 use crate::vector_functions::{vectorAdd, vectorMultiply, vectorDivide, vectorAverage,floatToArray3};
 use crate::vector_functions::vectorSubtract;
@@ -17,7 +17,7 @@ fn createSquareMesh(pointA:[f64; 3], pointB:[f64; 3], pointC:[f64; 3]) -> graphi
     graphics_assets::Mesh{triangles:squareMeshTriangles}
 }
 
-fn createCircleMesh(pointA:[f64; 3], pointB:[f64; 3], pointC:[f64;3]) -> graphics_assets::Mesh {
+fn createCircleMesh(pointA:[f64; 3], pointB:[f64; 3], pointC:[f64;3],color:[i32;3]) -> graphics_assets::Mesh {
     let CIRCLE_POINTS : i32 = 24;
     let radius:f64 = vectorDistance(pointA,pointB)/ 2.0;
     let mut circleMeshTriangles : Vec<graphics_assets::Triangle> = vec![];
@@ -28,7 +28,11 @@ fn createCircleMesh(pointA:[f64; 3], pointB:[f64; 3], pointC:[f64;3]) -> graphic
     outerSquare.extend(vectorRange(pointB,pointC,CIRCLE_POINTS/4));
     outerSquare.extend(vectorRange(pointC,pointD,CIRCLE_POINTS/4));
     outerSquare.extend(vectorRange(pointD,pointA,CIRCLE_POINTS/4));
-    //Normalize square into triangle
-    let outerCircle:Vec<[f64;3]> = outerSquare.iter().map([coord] vectorAdd(coord,vectorDivide(vectorSubtract(center,coord),floatToArray3(radius/vectorDistance(coord,center)))).collect();
+    //Normalize square into circle
+    let outerCircle:Vec<[f64;3]> = outerSquare.iter().map(|coord| vectorAdd(*coord, vectorDivide(vectorSubtract(center, *coord), floatToArray3(radius/vectorDistance(*coord, center))))).collect();
+    for index in 0..outerCircle.len() {
+        circleMeshTriangles.push(Triangle{vertices:[center,outerCircle[index],outerCircle[index-1]], color })
+    };
+    circleMeshTriangles
 }
 
