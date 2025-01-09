@@ -4,15 +4,16 @@ use crate::vector_functions;
 //Vertex
 pub(crate) struct Vertex {
     pub(crate) position: [f64; 3],
+    pub(crate) triangles: Vec<[f64; 3]>
 }
 
 //Triangle
 pub(crate) struct Triangle {
-    pub(crate) vertices: [Vertex; 3],
+    pub(crate) vertices: [[f64; 3]; 3],
     pub(crate) color: [i32; 3]
 }
 impl Triangle {
-    fn changeVertices(&mut self,vertices:[Vertex; 3]) {
+    fn changeVertices(&mut self,vertices:[[f64; 3]; 3]) {
         self.vertices = vertices;
     }
     fn changeColor(&mut self,color:[i32; 3]) {
@@ -20,7 +21,7 @@ impl Triangle {
     }
     fn translate(&mut self,translation:[f64; 3]) {
         for vertex in &mut self.vertices {
-            vertex.position = vector_functions::vectorAdd(translation, vertex.position);
+            *vertex = vector_functions::vectorAdd(translation, *vertex);
         }
     }
 }
