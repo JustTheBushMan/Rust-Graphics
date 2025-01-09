@@ -28,7 +28,11 @@ fn createCircleMesh(pointA:[f64; 3], pointB:[f64; 3], pointC:[f64;3]) -> graphic
     outerSquare.extend(vectorRange(pointB,pointC,CIRCLE_POINTS/4));
     outerSquare.extend(vectorRange(pointC,pointD,CIRCLE_POINTS/4));
     outerSquare.extend(vectorRange(pointD,pointA,CIRCLE_POINTS/4));
-    //Normalize square into triangle
-    let outerCircle:Vec<[f64;3]> = outerSquare.iter().map([coord] vectorAdd(coord,vectorDivide(vectorSubtract(center,coord),floatToArray3(radius/vectorDistance(coord,center)))).collect();
+    //Normalize square into circle
+    let outerCircle:Vec<[f64;3]> = outerSquare.iter().map([coord] vectorAdd(coord,vectorDivide(vectorSubtract(center,coord),floatToArray3(radius/vectorDistance(coord,center))))).collect();
+    for index in 0..outerCircle.len() {
+        circleMeshTriangles.push(Triangle{[center,outerCircle[index],outerCircle[index-1]]})
+    };
+    circleMeshTriangles
 }
 
