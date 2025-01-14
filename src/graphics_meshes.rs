@@ -1,4 +1,4 @@
-use crate::constants;
+use crate::{constants, graphics_assets};
 use crate::graphics_assets::*;
 use crate::vector_functions;
 use crate::vector_functions::{vectorAdd, vectorMultiply, vectorDivide, vectorAverage,floatToArray3};
@@ -23,7 +23,7 @@ fn createCircleMesh(pointA:[f64; 3], pointB:[f64; 3], pointC:[f64;3],color:[i32;
     let mut circleMeshTriangles : Vec<graphics_assets::Triangle> = vec![];
     let mut outerSquare : Vec<[f64;3]>;
     let pointD:[f64; 3] = vectorAdd(pointA,vectorSubtract(pointC,pointB));
-    let center:[f64;3] = vectorAverage(Vec::from([pointA, pointB, pointC, pointD]));
+    let center:[f64;3] = vectorAverage(vec![pointA, pointB, pointC, pointD]);
     outerSquare.extend(vectorRange(pointA,pointB,CIRCLE_POINTS/4));
     outerSquare.extend(vectorRange(pointB,pointC,CIRCLE_POINTS/4));
     outerSquare.extend(vectorRange(pointC,pointD,CIRCLE_POINTS/4));
@@ -33,6 +33,6 @@ fn createCircleMesh(pointA:[f64; 3], pointB:[f64; 3], pointC:[f64;3],color:[i32;
     for index in 0..outerCircle.len() {
         circleMeshTriangles.push(Triangle{vertices:[center,outerCircle[index],outerCircle[index-1]], color })
     };
-    circleMeshTriangles
+    Mesh{triangles:circleMeshTriangles}
 }
 
